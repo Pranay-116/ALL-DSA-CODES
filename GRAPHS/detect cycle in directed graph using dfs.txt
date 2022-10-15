@@ -1,0 +1,88 @@
+#include<bits/stdc++.h>
+using namespace std;
+void buildGraph(int u,int v,vector<int>adj[])
+{
+    adj[u].push_back(v);
+   // adj[v].push_back(u);
+}
+void printGraph(int V,vector<int>adj[])
+{
+    for(int i=0;i<V;i++)
+    {
+        cout<<i;
+        for(auto it:adj[i])
+        {
+            cout<<"->"<<it;
+        }
+        cout<<"\n";
+    }
+    
+}
+bool DetectCycleDirectedGraphDFS(int s,vector<int>adj[],vector<int>&visited,vector<int>&dfsvisited)
+{
+    visited[s]=1;
+    dfsvisited[s]=1;
+    for(auto it:adj[s])
+    {
+        if(!visited[it])
+        {
+        if(DetectCycleDirectedGraphDFS(it,adj,visited,dfsvisited))
+        return true;
+        }
+        else if(dfsvisited[it])
+        return true;
+    }
+    dfsvisited[s]=0;
+    return false;
+}
+bool isCyclic(int N,vector<int>adj[])
+{
+    vector<int>visited(N,0);
+     vector<int>dfsvisited(N,0);
+   //  memset(visited,)
+   for(int i=0;i<N;i++)
+   {
+       if(!visited[i])
+       {
+           if(DetectCycleDirectedGraphDFS(i,adj,visited,dfsvisited))
+           return true;
+       }
+   }
+   return false;
+   
+}
+int main()
+{
+    int N=6;
+    vector<int>adj[N];
+    buildGraph(0,1,adj);
+
+    buildGraph(0,2,adj);
+
+    buildGraph(0,3,adj);
+
+    buildGraph(0,4,adj);
+
+
+
+    buildGraph(1,1,adj);
+
+    buildGraph(1,2,adj);
+
+    buildGraph(2,3,adj);
+
+    buildGraph(2,4,adj);
+
+
+
+    buildGraph(3,0,adj);
+    buildGraph(3,4,adj);
+   // buildGraph(4,,adj);
+  //  printGraph(N,adj);
+    
+    
+    
+    cout<<isCyclic(N,adj)<<endl;
+    return 0;
+    
+}

@@ -1,0 +1,22 @@
+
+
+int f(vector<int>&prices,int n,int idx,int buy,int cap,vector<vector<vector<int>>>&dp)
+{
+    if(idx==n||cap==0)
+        return 0;
+    if(dp[idx][buy][cap]!=-1)
+        return dp[idx][buy][cap];
+    int profit;
+    if(buy==0)
+        profit=max(f(prices,n,idx+1,0,cap,dp),-1*prices[idx]+f(prices,n,idx+1,1,cap,dp));
+    else
+        profit=max(f(prices,n,idx+1,1,cap,dp),prices[idx]+f(prices,n,idx+1,0,cap-1,dp));
+    return dp[idx][buy][cap]=profit;
+        
+        
+}
+int maxProfit(vector<int>& prices, int n)
+{
+    vector<vector<vector<int>>>dp(n,vector<vector<int>>(2,vector<int>(3,-1)));
+    return f(prices,n,0,0,2,dp);
+}

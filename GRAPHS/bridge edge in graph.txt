@@ -1,0 +1,22 @@
+   void dfs(int s,vector<bool>&visited,vector<int>adj[])
+    {
+        visited[s]=1;
+        for(auto it:adj[s])
+        {
+            if(!visited[it])
+            dfs(it,visited,adj);
+        }
+    }
+    int isBridge(int V, vector<int> adj[], int c, int d) 
+    {
+        adj[c].erase(find(adj[c].begin(),adj[c].end(),d));
+        adj[d].erase(find(adj[d].begin(),adj[d].end(),c));
+        vector<bool>visited(V,0);
+       // visited[c]=1;
+       dfs(c,visited,adj);
+        if(visited[d]==0)
+        return true;
+        else
+        return false;
+        
+    }

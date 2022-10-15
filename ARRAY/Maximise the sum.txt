@@ -1,0 +1,42 @@
+long maxPathSum(int ar1[], int ar2[], int m, int n)
+{
+    
+    long ans=0;
+    int i=0;
+    int j=0;
+    long s1=0;
+    long s2=0;
+    while(i<m&&j<n)
+    {
+        if(ar1[i]<ar2[j])
+        {
+            s1+=ar1[i];
+            i++;
+        }
+        else if(ar2[j]<ar1[i])
+        {
+            s2+=ar2[j];
+            j++;
+        }
+        else
+        {
+            s1+=ar1[i];
+            s2+=ar2[j];
+            long s=max(s1,s2);
+            ans+=s;
+            i++;
+            j++;
+            s1=0;
+            s2=0;
+        }
+        
+            
+    }
+    while(j<n)
+        s2+=ar2[j++];
+    while(i<m)
+        s1+=ar1[i++];
+    ans+=max(s1,s2);
+        return ans;
+    
+}

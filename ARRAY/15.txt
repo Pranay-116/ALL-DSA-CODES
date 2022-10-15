@@ -1,0 +1,44 @@
+ int maxScore(vector<int>& cardPoints, int k) {
+       long long int n=cardPoints.size();
+        vector<long long int>prefixsum(n);
+        vector<long long int>suffixsum(n);
+        prefixsum[0]=cardPoints[0];
+        for(long long int i=1;i<n;i++)
+            prefixsum[i]=prefixsum[i-1]+cardPoints[i];
+        // for(auto it:prefixsum)
+        //     cout<<it<<" ";
+        // cout<<endl;
+        suffixsum[n-1]=cardPoints[n-1];
+        for(long long int i=n-2;i>=0;i--)
+            suffixsum[i]=suffixsum[i+1]+cardPoints[i];
+        reverse(suffixsum.begin(),suffixsum.end());
+        // for(auto it:suffixsum)
+        //     cout<<it<<" ";
+        // cout<<endl;
+        
+        long long int maxi=-1e18;
+        maxi=max(maxi,prefixsum[k-1]);
+        maxi=max(maxi,suffixsum[k-1]);
+        long long int sum;
+        for(int i=0;i<k-1;i++)
+        {
+            //if(i==0)
+//             if(i+1==k)
+//                 continue;
+//             if(i==0)
+//             {
+//                  sum=prefixsum[i]+suffixsum[n-k+1];
+//             }
+//             else
+//               sum=prefixsum[i]+suffixsum[n-k+i];
+            sum=prefixsum[i]+suffixsum[k-i-2];
+            
+            
+             maxi=max(maxi,sum);
+            
+            
+            
+        }
+        return maxi;
+        
+    }

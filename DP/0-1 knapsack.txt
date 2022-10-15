@@ -1,0 +1,26 @@
+
+
+int f(int idx,vector<int>&weight,vector<int>&value,int maxWeight,vector<vector<int>>&dp)
+{
+    if(idx==0)
+    {
+        if(maxWeight>=weight[0])
+        return value[idx];
+        else
+            return 0;
+    }
+    if(dp[idx][maxWeight]!=-1)
+        return dp[idx][maxWeight];
+    int nt=f(idx-1,weight,value,maxWeight,dp);
+    int t=INT_MIN;
+    if(maxWeight>=weight[idx])
+        t=value[idx]+f(idx-1,weight,value,maxWeight-weight[idx],dp);
+    return dp[idx][maxWeight]=max(nt,t);
+}
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+    vector<vector<int>>dp(n,vector<int>(maxWeight+1,-1));
+    return f(n-1,weight,value,maxWeight,dp);
+    
+   
+}

@@ -1,0 +1,58 @@
+
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+       int n=prerequisites.size();
+        
+        vector<int>adj[numCourses];
+        vector<int>indegree(numCourses,0);
+        for(int i=0;i<n;i++)
+        {
+            auto it=prerequisites[i];
+            
+            adj[it[1]].push_back(it[0]);
+            indegree[it[0]]++;
+           
+        }
+
+        queue<int>q;
+       //   vector<bool>visited(numCourses,0);
+        for(int i=0;i<indegree.size();i++)
+        {
+            if(indegree[i]==0)
+            {
+                q.push(i);
+                //visited[i]=1;
+            }
+                
+                
+        }
+              vector<int>v;
+  
+          int cnt=0;  
+        while(!q.empty())
+        {
+            int x=q.front();
+            q.pop();
+            v.push_back(x);
+            cnt++;
+            for(auto it:adj[x])
+            {
+                //if(!visited[it])
+                //{
+                   // visited[it]=1;
+                    indegree[it]--;
+                    if(indegree[it]==0)
+                        q.push(it);
+                
+            }
+            
+        }
+      
+        if(cnt==numCourses)
+            return v;
+        else
+            return{};
+    
+  
+        
+        
+    }

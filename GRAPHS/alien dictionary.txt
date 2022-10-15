@@ -1,0 +1,46 @@
+    string findOrder(string dict[], int N, int K) {
+        vector<int>adj[K];
+        vector<int>indegree(K,0);
+        for(int i=0;i<N-1;i++)
+        {
+          int minlength=min(dict[i].length(),dict[i+1].length());
+          for(int j=0;j<minlength;j++)
+          {
+              if(dict[i][j]!=dict[i+1][j])
+              {
+                  adj[dict[i][j]-'a'].push_back(dict[i+1][j]-'a');
+                  indegree[dict[i+1][j]-'a']++;
+                  break;
+              }
+          }
+        }
+        queue<int>q;
+        for(int i=0;i<K;i++)
+        {
+            if(indegree[i]==0)
+            q.push(i);
+        }
+        vector<int>v;
+        while(!q.empty())
+        {
+            int x=q.front();
+            q.pop();
+            v.push_back(x);
+            for(auto it:adj[x])
+            {
+               indegree[it]--;
+               if(indegree[it]==0)
+               q.push(it);
+            }
+            
+        }
+        string ans;
+        for(int i=0;i<v.size();i++)
+        {
+            char x=(char)(v[i]+'a');
+            ans.push_back(x);
+        }
+        return ans;
+            
+        
+    }

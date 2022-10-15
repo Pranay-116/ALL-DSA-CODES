@@ -1,0 +1,41 @@
+typedef long long int ll;
+    int isPossible(long long S, long long N, long long X, long long A[])
+    {
+          vector<ll>sum;
+       // sum[0]=S;
+        ll pfs=S;
+        sum.push_back(pfs);
+        ll x=S;
+        for(ll i=0;i<N;i++)
+        {
+            pfs+=A[i];
+           
+            sum.push_back(pfs);
+             if(pfs>X)
+            break;
+            x+=pfs;
+            pfs=x;
+            
+        }
+  if(binary_search(sum.begin(),sum.end(),X))
+        return 1;
+        ll idx=sum.size()-1;
+        while(idx>=0)
+        {
+            if(sum[idx]<=X)
+            X-=sum[idx];
+            
+            if(X==0)
+            return true;
+            else if(X>0)
+            idx--;
+            else
+            return false;
+            
+        }
+        
+       
+        
+     
+        return 0;
+    }

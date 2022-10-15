@@ -1,0 +1,21 @@
+typedef long long int ll;
+const ll mod=1000000007;
+ll f(int n,vector<int>&dp)
+{
+    if(n<=2)
+    return n;
+    if(dp[n]!=-1)
+    return dp[n];
+    ll op1=f(n-1,dp);
+    ll op2=0;
+    if(n>1)
+     op2=(n-1)*f(n-2,dp)%mod;
+    return dp[n]=(op1+op2)%mod;
+}
+    int countFriendsPairings(int n) 
+    { 
+        vector<int>dp(n+1,-1);
+        return (int)f(n,dp)%mod;
+        
+      
+    }

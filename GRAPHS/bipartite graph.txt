@@ -1,0 +1,40 @@
+bool isBipartite(vector<vector<int>>& graph) {
+        int n=graph.size();
+        vector<int>visited(n,0);
+        vector<int>color(n,-1);
+       
+        queue<int>q;
+      
+       for(int i=0;i<n;i++)
+       {
+           if(!visited[i]){
+            visited[i]=1;
+        color[i]=1;
+             q.push(i);
+        while(!q.empty())
+        {
+            int x=q.front();
+            q.pop();
+            for(auto it:graph[x])
+            {
+                if(!visited[it])
+                {
+                    visited[it]=1;
+                    color[it]=1-color[x];
+                }
+                else
+                {
+                    if(color[it]!=color[x])
+                        continue;
+                    else
+                        return false;
+                }
+                q.push(it);
+            }
+        }
+       }
+       }
+        return true;
+        
+    }
+};

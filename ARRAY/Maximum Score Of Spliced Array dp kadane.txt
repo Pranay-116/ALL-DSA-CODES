@@ -1,0 +1,31 @@
+    int kadane(vector<int>&v)
+    {
+       int curr_sum=0;
+       int max_sum=INT_MIN;
+        for(int i=0;i<v.size();i++)
+        {
+            curr_sum+=v[i];
+            max_sum=max(max_sum,curr_sum);
+            if(curr_sum<0)
+                curr_sum=0;
+        }
+        return max_sum;
+    }
+    int maximumsSplicedArray(vector<int>& v1, vector<int>& v2) {
+        int s1=0;
+        int s2=0;
+        int n=v1.size();
+        vector<int>diff(n),diff1(n);
+        for(auto it:v1)
+            s1+=it;
+        for(auto it:v2)
+            s2+=it;
+        for(int i=0;i<n;i++)
+            diff[i]=v2[i]-v1[i];
+         for(int i=0;i<n;i++)
+            diff1[i]=v1[i]-v2[i];
+        int max_sum=kadane(diff);
+                int max_sum1=kadane(diff1);
+        return max(s1+max_sum,s2+max_sum1);
+        
+    }

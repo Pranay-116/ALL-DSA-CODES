@@ -1,0 +1,86 @@
+   vector<ll>NextSmallerRight(vector<ll>&arr,ll n)
+    {
+        stack<ll>stk;
+        vector<ll>NSR;
+        for(ll i=n-1;i>=0;i--)
+        {
+            if(stk.size()==0)
+            {
+                NSR.push_back(n);
+                stk.push(i);
+                
+            }
+            else if(stk.size()>0&&arr[stk.top()]<arr[i])
+            {
+                NSR.push_back(stk.top());
+                stk.push(i);
+            }
+            else if(stk.size()>0&&arr[stk.top()]>=arr[i])
+            {
+                while(stk.size()>0&&arr[stk.top()]>=arr[i])
+                stk.pop();
+                if(stk.size()==0)
+                {
+                     NSR.push_back(n);
+                stk.push(i);
+                }
+                else
+                {
+                  NSR.push_back(stk.top());
+                stk.push(i);  
+                }
+            }
+        }
+        reverse(NSR.begin(),NSR.end());
+        return NSR;
+        
+    }
+    vector<ll>NextSmallerLeft(vector<ll>&arr,ll n)
+    {
+               stack<ll>stk;
+        vector<ll>NSL;
+        for(ll i=0;i<n;i++)
+        {
+            if(stk.size()==0)
+            {
+                NSL.push_back(-1);
+                stk.push(i);
+                
+            }
+            else if(stk.size()>0&&arr[stk.top()]<arr[i])
+            {
+                NSL.push_back(stk.top());
+                stk.push(i);
+            }
+            else if(stk.size()>0&&arr[stk.top()]>=arr[i])
+            {
+                while(stk.size()>0&&arr[stk.top()]>=arr[i])
+                stk.pop();
+                if(stk.size()==0)
+                {
+                     NSL.push_back(-1);
+                stk.push(i);
+                }
+                else
+                {
+                  NSL.push_back(stk.top());
+                stk.push(i);  
+                }
+            }
+        }
+        return NSL;
+         
+    }
+    
+    int largestRectangleArea(vector<ll>& arr) {
+        ll n=arr.size();
+         vector<ll>NSR= NextSmallerRight(arr,n); 
+       vector<ll>NSL=NextSmallerLeft(arr,n);
+       ll ans=INT_MIN;
+       for(ll i=0;i<n;i++)
+       {
+           ans=max(ans,(NSR[i]-NSL[i]-1)*arr[i]);
+       }
+       return ans;
+        
+    }

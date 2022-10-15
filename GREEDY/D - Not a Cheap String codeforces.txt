@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main()
+{
+    ll tc;
+    cin>>tc;
+    while(tc--)
+    {
+        string s;
+        cin>>s;
+        ll p;
+        cin>>p;
+        ll ans=0;
+        for(auto&it:s)
+        {
+            ans+=(it-'a'+1);
+        }
+        if(ans<=p)
+        {
+            cout<<s<<endl;
+            continue;
+        }
+        else
+        {
+            map<char,vector<ll>>mp;
+            for(int i=0;i<s.length();i++)
+            mp[s[i]].push_back(i);
+            string temp="";
+            for(auto it:mp)
+            {
+                temp+=it.first;
+            }
+            ll k=temp.size()-1;
+            while(ans>p&&k>=0)
+            {
+                char ch=temp[k];
+                for(auto idx:mp[ch])
+                {
+                  if(ans>p)
+                  {
+                      ans-=(ch-'a'+1);
+                      s[idx]='0';
+                      if(ans<=p)
+                      break;
+                  }
+                }
+                k--;
+            }
+            string str="";
+            for(int i=0;i<s.length();i++)
+            {
+                if(s[i]=='0')
+                continue;
+                else
+                str+=s[i];
+            }
+            cout<<str<<endl;
+        }
+    }
+}

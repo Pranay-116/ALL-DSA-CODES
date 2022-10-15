@@ -1,0 +1,19 @@
+    typedef long long int ll;
+    int longestNiceSubarray(vector<int>& nums) {
+      ll ans=0;
+        ll j=0;
+        ll i=0;
+        ll n=nums.size();
+        ll num=0;
+        for(int j=0;j<n;j++)
+        {
+            while((nums[j]&num)!=0)
+            {
+                num=num^nums[i++];
+            }
+            num=num|nums[j];
+            ans=max(ans,j-i+1);
+        }
+        return ans;
+        
+    }

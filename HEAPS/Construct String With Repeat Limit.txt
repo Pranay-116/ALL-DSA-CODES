@@ -1,0 +1,38 @@
+    string repeatLimitedString(string s, int repeatLimit) {
+        map<char,int>mp;
+        priority_queue<char>pq;
+        for(auto it:s){
+            mp[it]++;
+        }
+        for(auto it:mp)
+        {
+            pq.push(it.first);
+        }
+        
+        string ans="";
+        while(pq.size()>0)
+        {
+            char x=pq.top();
+            for(int i=0;i<min(mp[x],repeatLimit);i++)
+                ans.push_back(x);
+            mp[x]-=min(mp[x],repeatLimit);
+            if(mp[x]==0)
+                pq.pop();
+            else
+            {
+                char c1=pq.top();
+                pq.pop();
+                if(pq.size()>0){
+                char c2=pq.top();
+                ans.push_back(c2);
+                    mp[c2]--;
+                    if(mp[c2]==0)
+                        pq.pop();}
+                else
+                    return ans;
+                pq.push(c1);
+            }
+        }
+        return ans;
+        
+    }

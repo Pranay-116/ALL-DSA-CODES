@@ -1,0 +1,28 @@
+int dfs(vector<vector<int>>graph,vector<bool>&visited,int s,int d)
+{
+    if(s==d)
+    {
+        
+        return 1;
+    }
+    visited[s]=1;
+    int ans=0;
+    for(auto it:graph[s])
+    {
+        if(!visited[it])
+       ans+= dfs(graph,visited,it,d);
+    }
+    visited[s]=0;
+    
+    return ans;
+}
+	int possible_paths(vector<vector<int>>edges, int n, int s, int d){
+           vector<bool>visited(n,0);
+           
+           vector<vector<int>>graph(n);
+           for(auto i:edges)
+           graph[i[0]].push_back(i[1]);
+         return  dfs(graph,visited,s,d);
+           
+	}
+use vector<vector<int>>

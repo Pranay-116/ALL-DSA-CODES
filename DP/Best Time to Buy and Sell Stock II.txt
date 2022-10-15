@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+long f(int idx,int buy,long*values,int n,vector<vector<long>>&dp)
+{
+	if(idx==n)
+		return 0;
+	if(dp[idx][buy]!=-1)
+		return dp[idx][buy];
+	long profit=0;
+	if(buy)
+	{
+		profit=max(-values[idx]+f(idx+1,0,values,n,dp),f(idx+1,1,values,n,dp));
+	}
+	else
+	{
+		profit=max(values[idx]+f(idx+1,1,values,n,dp),f(idx+1,0,values,n,dp));
+	}
+	return dp[idx][buy]= profit;
+		
+}
+long getMaximumProfit(long *values, int n)
+{
+	vector<vector<long>>dp(n+1,vector<long>(2,0));
+    return f(0,1,values,n,dp);
+// 	for(int i=0;i<2;i++)
+// 	{
+// 		dp[n][i]=0;
+// 	}
+// 	for(int idx=n-1;idx>=0;idx--)
+// 	{
+// 		for(int j=0;j<2;j++)
+// 		{
+// 				long profit=0;
+// 	if(j)
+// 	{
+// 		profit=max(-values[idx]+dp[idx+1][0],dp[idx+1][1]);
+// 	}
+// 	else
+// 	{
+// 		profit=max(values[idx]+dp[idx+1][1],dp[idx+1][0]);
+// 	}
+// 	 dp[idx][j]=profit;
+// 		}
+// 	}
+// 	return dp[0][1];
+}

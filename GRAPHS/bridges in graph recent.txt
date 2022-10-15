@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+void dfs(int node, int parent, vector<int> &vis, vector<int> &tin, vector<int> &low, int &timer, vector<int> adj[]) {
+    vis[node] = 1; 
+    tin[node] = low[node] = timer++; 
+    for(auto it: adj[node]) {
+        if(it == parent) continue;
+        
+        if(!vis[it]) {
+            dfs(it, node, vis, tin, low, timer, adj); 
+            low[node] = min(low[node], low[it]); 
+            if(low[it] > tin[node]) {
+                cout << node << " " << it << endl;
+            }
+        } else {
+            low[node] = min(low[node], tin[it]); 
+        }
+    }
+}
+int main() {
+    int n, m;
+    cin >> n >> m; 
+	vector<int> adj[n]; 
+	for(int i = 0;i<m;i++) {
+	    int u, v;
+	    cin >> u >> v; 
+	    adj[u].push_back(v);
+	    adj[v].push_back(u); 
+	}
+	
+	vector<int> tin(n, -1);
+	vector<int> low(n, -1); 
+	vector<int> vis(n, 0); 
+	int timer = 0; 
+	for(int i = 0;i<n;i++) {
+	    if(!vis[i]) {
+	        dfs(i, -1, vis, tin, low, timer, adj); 
+	    }
+	}
+	
+	return 0;
+}
+
+
+gfg question
+void dfs(int s,vector<bool>&visited,vector<int>adj[])
+    {
+        visited[s]=1;
+        for(auto it:adj[s])
+        {
+            if(!visited[it])
+            dfs(it,visited,adj);
+        }
+    }
+    int isBridge(int V, vector<int> adj[], int c, int d) 
+    {
+        adj[c].erase(find(adj[c].begin(),adj[c].end(),d));
+        adj[d].erase(find(adj[d].begin(),adj[d].end(),c));
+        vector<bool>visited(V,0);
+       // visited[c]=1;
+       dfs(c,visited,adj);
+        if(visited[d]==0)
+        return true;
+        else
+        return false;
+        
+    }

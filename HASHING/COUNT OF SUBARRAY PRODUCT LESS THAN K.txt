@@ -1,0 +1,24 @@
+    typedef long long ll;
+    int numSubarrayProductLessThanK(vector<int>& nums, int k) {
+        ll p=1;
+        ll c=0;
+        ll i=0;
+        ll j=0;
+        int n=nums.size();
+        if(k==0)
+            return 0;
+        while(j<n)
+        {
+            p=p*nums[j];
+            while(p>=k&&i<=j)
+            {
+                p/=nums[i];
+                i++;
+            }
+            c+=(j-i+1);
+            j++;
+        }
+        return c;
+            
+        
+    }

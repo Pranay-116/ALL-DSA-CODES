@@ -1,0 +1,38 @@
+ void dfs(int s,int d,vector<int>&visited,vector<int>&v,vector<vector<int>>&matrix,vector<vector<int>>adj)
+    {
+        if(s==d)
+        {
+            v.push_back(s);
+            matrix.push_back(v);
+            return;
+        }
+        visited[s]=1;
+        v.push_back(s);
+        for(auto it:adj[s])
+        {
+            if(!visited[it])
+                dfs(it,d,visited,v,matrix,adj);
+              visited[s]=0;
+        v.pop_back();
+        }
+      
+        return;
+    }
+        
+        
+    
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        int n=graph.size();
+        vector<vector<int>>adj(n);
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<graph[i].size();j++)
+            adj[i].push_back(graph[i][j]);
+        }
+        vector<int>v;
+        vector<vector<int>>matrix;
+        vector<int>visited(n,0);
+        dfs(0,n-1,visited,v,matrix,adj);
+        return matrix;
+        
+    }

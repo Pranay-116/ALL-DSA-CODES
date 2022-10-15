@@ -1,0 +1,43 @@
+    bool canReorderDoubled(vector<int>& arr) {
+        sort(arr.begin(),arr.end());
+        int c=0;
+        map<int,int>mp;
+        for(auto it:arr)
+            mp[it]++;
+        int n=arr.size();
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i]<0&&mp[arr[i]]>0)
+            {
+               if(mp.count(arr[i]/2)&&(2*(arr[i]/2)==arr[i]))
+               {
+                
+                   int x=min(mp[arr[i]],mp[arr[i]/2]);
+                       c+=x;
+                   mp[arr[i]]=max(0,mp[arr[i]]-x);
+                   mp[arr[i]/2]=max(0,mp[arr[i]/2]-x);
+               }
+            }
+            else if(arr[i]>=0&&mp[arr[i]]>0)
+            {
+                  if(mp.count(2*arr[i]))
+               {
+                
+                   int x=min(mp[arr[i]],mp[2*arr[i]]);
+                       c+=x;
+                   mp[arr[i]]=max(0,mp[arr[i]]-x);
+                   mp[2*arr[i]]=max(0,mp[2*arr[i]]-x);
+               }
+                
+            }
+        }
+        for(auto it:mp)
+        {
+            if(it.second>0)
+                return false;
+        }
+        return true;
+        
+            
+        
+    }

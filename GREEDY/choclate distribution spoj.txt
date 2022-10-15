@@ -1,0 +1,27 @@
+int minimumCostOfBreaking(vector<int> X, vector<int> Y, int M, int N){
+             sort(X.begin(),X.end());
+             sort(Y.begin(),Y.end());
+             int i=X.size()-1;
+             int j=Y.size()-1;
+             int ans=0;
+             int row=1;
+             int col=1;
+             while(i>=0||j>=0)
+             {
+                 if(X[i]>=Y[j])
+                 {
+                     ans+=(X[i]*row);
+                     col++;
+                     i--; 
+
+                 }
+                 else
+                 {
+                     ans+=(Y[j]*col);
+                     row++;
+                     j--;
+                 }
+                 
+             }
+             return ans;
+    }

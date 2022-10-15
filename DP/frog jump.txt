@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+int f(int idx,vector<int>&heights,vector<int>&dp)
+{
+    if(idx==0)
+        return 0;
+    if(dp[idx]!=-1)
+        return dp[idx];
+    int op1=abs(heights[idx]-heights[idx-1])+f(idx-1,heights,dp);
+    int op2=INT_MAX;
+    if(idx>=2)
+        op2=abs(heights[idx]-heights[idx-2])+f(idx-2,heights,dp);
+    return dp[idx]=min(op1,op2);
+    
+}
+int frogJump(int n, vector<int> &heights)
+{
+  vector<int>dp(n+1,-1);
+   return f(n-1,heights,dp);
+}

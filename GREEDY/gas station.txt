@@ -1,0 +1,36 @@
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int si=-1;
+        int reality=0;
+        int expectation=0;
+        int n=gas.size();
+        for(int i=0;i<n;i=(i+1)%n)
+        {
+           reality+=gas[i];
+            expectation+=cost[i];
+               if(si!=-1&&i==si)
+                return si;
+            if(reality>=expectation)
+            {
+                if(si==-1)
+                    si=i;
+                
+                 
+            }
+            else
+            {
+                // if(si!=-1)
+                //  return -1; 
+                if(i<si)
+                    return -1;
+                si=-1;
+                
+                reality=0;
+                expectation=0;
+            }
+            if(i==n-1&&si==-1)
+                return -1;
+         
+        }
+        return -1;
+        
+    }
